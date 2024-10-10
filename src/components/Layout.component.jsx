@@ -7,7 +7,7 @@ import Navbar from "./Navbar.component";
 import Hamburger from "./Hamburger.component";
 
 // Contexts
-import { SidebarContext } from "../providers";
+import { SidebarContext, ThemeContext } from "../providers";
 
 const Layout = ({ children }) => {
     const { pathname } = useLocation();
@@ -15,11 +15,21 @@ const Layout = ({ children }) => {
     const isAdminRoute = firstPath === "admin";
     const { sidebar: isSidebarOpen, sidebarHandler } =
         useContext(SidebarContext);
+    const { theme, themeHandler } = useContext(ThemeContext);
 
     const admin = (
         <div>
-            <Navbar routes={ADMIN_ROUTES} isAdmin={isAdminRoute} />
-            <Hamburger isOpen={isSidebarOpen} onClick={sidebarHandler} />
+            <Navbar
+                routes={ADMIN_ROUTES}
+                isAdmin={isAdminRoute}
+                theme={theme}
+                themeHandler={themeHandler}
+            />
+            <Hamburger
+                isOpen={isSidebarOpen}
+                onClick={sidebarHandler}
+                theme={theme}
+            />
             {children}
         </div>
     );
