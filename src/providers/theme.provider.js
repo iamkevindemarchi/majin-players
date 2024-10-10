@@ -6,16 +6,14 @@ import { getFromStorage, setToStorage } from "../utils";
 export const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-    const storageTheme = getFromStorage(
-        `${process.env.REACT_APP_WEBSITE}-theme`
-    );
+    const storageTheme = getFromStorage("theme");
 
     const [theme, setTheme] = useState(storageTheme || "light");
 
     function themeHandler() {
         const changedTheme = theme === "light" ? "dark" : "light";
         setTheme(changedTheme);
-        setToStorage(`${process.env.REACT_APP_WEBSITE}-theme`, changedTheme);
+        setToStorage("theme", changedTheme);
     }
 
     return (

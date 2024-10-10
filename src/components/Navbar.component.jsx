@@ -68,7 +68,7 @@ const Navbar = ({ routes, isAdmin }) => {
 
     async function logoutHandler() {
         await AUTH_API.logout();
-        removeFromStorage(`${process.env.REACT_APP_WEBSITE}-session`);
+        removeFromStorage("session");
         navigate("/login");
     }
 
