@@ -95,8 +95,8 @@ const Sidebar = ({
 
     return (
         <div
-            className={`desktop:hidden phone:flex flex-col gap-10 top-[-100%] opacity-[0] transition-all duration-200 absolute w-full justify-center items-center h-full ${
-                isOpen && "top-0 opacity-100"
+            className={`desktop:hidden phone:flex flex-col gap-10 transition-all duration-200 absolute w-full justify-center items-center h-full ${
+                isOpen ? "top-0 opacity-100" : "top-[-100%] opacity-[0]"
             } ${theme === "dark" ? "bg-black" : "bg-white"}`}
         >
             {logo}
