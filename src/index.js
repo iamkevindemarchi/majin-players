@@ -9,7 +9,7 @@ import "./index.css";
 import App from "./App";
 
 // Providers
-import { AuthProvider } from "./providers";
+import { AuthProvider, ThemeProvider, SidebarProvider } from "./providers";
 
 const root = createRoot(document.getElementById("root"));
 
@@ -17,7 +17,11 @@ const app = (
     <StrictMode>
         <BrowserRouter>
             <AuthProvider>
-                <App />
+                <ThemeProvider>
+                    <SidebarProvider>
+                        <App />
+                    </SidebarProvider>
+                </ThemeProvider>
             </AuthProvider>
         </BrowserRouter>
     </StrictMode>
