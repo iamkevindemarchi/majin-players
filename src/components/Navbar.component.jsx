@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Api
@@ -11,16 +11,12 @@ import { LogoutIcon, SunIcon, MoonIcon } from "../assets/icons";
 // Components
 import IconButton from "./IconButton.component";
 
-// Contexts
-import { ThemeContext } from "../providers";
-
 // Utils
 import { removeFromStorage } from "../utils";
 
-const Navbar = ({ routes, isAdmin }) => {
+const Navbar = ({ routes, isAdmin, theme, themeHandler }) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const { theme, themeHandler } = useContext(ThemeContext);
 
     const paths = pathname.split("/");
     const section = isAdmin ? paths[2] : paths[1];
