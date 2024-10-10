@@ -3,12 +3,20 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
-import { LogoutIcon, SunIcon, MoonIcon } from "../assets/icons";
+import { LogoutIcon, MoonIcon, SunIcon } from "../assets/icons";
 
 // Components
 import IconButton from "./IconButton.component";
 
-const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
+const Sidebar = ({
+    isOpen,
+    isAdmin,
+    routes,
+    sidebarHandler,
+    theme,
+    themeHandler,
+    logoutHandler,
+}) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -18,6 +26,7 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     function logoHandler() {
         const path = isAdmin ? "/admin" : "/";
         navigate(path);
+        sidebarHandler();
     }
 
     const logo = (
@@ -25,12 +34,12 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
             onClick={logoHandler}
             src={logoImg}
             alt="Impossibile visualizzare l'immagine."
-            className="w-20 hover:opacity-50 cursor-pointer opacity-100 top-0 transition-all duration-200"
+            className="w-20 hover:opacity-50 transition-all duration-200 cursor-pointer"
         />
     );
 
     const routesComponent = (
-        <div className="flex-row items-center justify-around w-[50%] desktop:flex phone:hidden">
+        <div className="flex flex-col gap-5 items-center justify-around w-[50%]">
             {routes.map((route) => {
                 const pathname = route.path;
                 const paths = pathname.split("/");
@@ -42,11 +51,12 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
                         <Link
                             key={route.path}
                             to={route.path}
+                            onClick={sidebarHandler}
                             className={`${
                                 isActiveRoute && "bg-navbar-btn"
-                            } px-5 py-1 rounded-lg transition-all duration-200`}
+                            } px-5 py-2 rounded-lg transition-all duration-200`}
                         >
-                            <span className="text-lg font-bold text-primary transition-all duration-200 cursor-pointer">
+                            <span className="text-2xl uppercase font-bold text-primary transition-all duration-200 cursor-pointer">
                                 {route.name}
                             </span>
                         </Link>
@@ -57,7 +67,7 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     );
 
     const icons = (
-        <div className="flex flex-row items-center gap-5 desktop:flex phone:hidden">
+        <div className="flex flex-col gap-20 items-center">
             <IconButton theme={theme} onClick={themeHandler}>
                 {theme === "light" ? (
                     <MoonIcon className="text-2xl text-blue" />
@@ -65,7 +75,15 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
                     <SunIcon className="text-2xl text-blue text-white" />
                 )}
             </IconButton>
-            <button onClick={logoutHandler}>
+            <button
+                onClick={() => {
+                    logoutHandler();
+
+                    setTimeout(() => {
+                        sidebarHandler();
+                    }, 1000);
+                }}
+            >
                 <LogoutIcon
                     className={`text-2xl ${
                         theme === "dark" ? "text-white" : "text-black"
@@ -77,9 +95,9 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
 
     return (
         <div
-            className={`h-32 flex flex-row items-center justify-around transition-all duration-200 fixed w-full ${
-                theme === "dark" ? "bg-black" : "bg-white"
-            }`}
+            className={`desktop:hidden phone:flex flex-col gap-10 top-[-100%] opacity-[0] transition-all duration-200 absolute w-full justify-center items-center h-full ${
+                isOpen && "top-0 opacity-100"
+            } ${theme === "dark" ? "bg-black" : "bg-white"}`}
         >
             {logo}
             {routesComponent}
@@ -88,4 +106,4 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     );
 };
 
-export default Navbar;
+export default Sidebar;
