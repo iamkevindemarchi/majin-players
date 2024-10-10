@@ -32,11 +32,7 @@ const Layout = ({ children }) => {
     }
 
     const admin = (
-        <div
-            className={`opacity-100 top-0 transition-all duration-200 ${
-                isSidebarOpen && "opacity-[0] top-[100%]"
-            }`}
-        >
+        <div>
             <Navbar
                 routes={ADMIN_ROUTES}
                 isAdmin={isAdminRoute}
