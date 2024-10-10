@@ -24,6 +24,7 @@ const App = () => {
             <Routes>
                 {ADMIN_ROUTES.map((adminRoute) => (
                     <Route
+                        key={adminRoute.path}
                         path={adminRoute.path}
                         element={
                             <ProtectedRoute>
@@ -33,7 +34,11 @@ const App = () => {
                     />
                 ))}
                 {ROUTES.map((route) => (
-                    <Route path={route.path} element={route.element} />
+                    <Route
+                        key={route.path}
+                        path={route.path}
+                        element={route.element}
+                    />
                 ))}
             </Routes>
         </Layout>

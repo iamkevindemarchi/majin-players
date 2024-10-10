@@ -50,6 +50,7 @@ const Navbar = ({ routes, isAdmin }) => {
                 return (
                     route.path !== "/admin" && (
                         <Link
+                            key={route.path}
                             to={route.path}
                             className={`${
                                 isActiveRoute && "bg-navbar-btn"

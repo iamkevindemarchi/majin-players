@@ -1,7 +1,6 @@
 import React from "react";
 
 const IconButton = ({ onClick, theme, children }) => {
-    console.log("🚀 ~ theme:", theme);
     return (
         <button
             onClick={onClick}
