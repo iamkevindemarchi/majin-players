@@ -9,7 +9,6 @@ export const ThemeProvider = ({ children }) => {
     const storageTheme = getFromStorage(
         `${process.env.REACT_APP_WEBSITE}-theme`
     );
-    console.log("🚀 ~ storageTheme:", storageTheme);
 
     const [theme, setTheme] = useState(storageTheme || "light");
 
