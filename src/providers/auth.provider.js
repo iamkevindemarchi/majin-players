@@ -6,9 +6,7 @@ import { getFromStorage } from "../utils";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const storageSession = getFromStorage(
-        `${process.env.REACT_APP_WEBSITE}-session`
-    );
+    const storageSession = getFromStorage("session");
 
     const [session, setSession] = useState(storageSession || null);
 

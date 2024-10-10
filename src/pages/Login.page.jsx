@@ -22,7 +22,7 @@ const Login = () => {
             "MKDema-130499"
         );
         setSession(res);
-        setToStorage(`${process.env.REACT_APP_WEBSITE}-session`, res);
+        setToStorage("session", res);
         navigate("/admin");
     }
 
