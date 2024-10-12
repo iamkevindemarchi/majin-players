@@ -1,2 +1,2 @@
-export { AUTH_API } from "./aut.api";
+export { AUTH_API } from "./auth.api";
 export { PLAYERS_API } from "./players.api";
