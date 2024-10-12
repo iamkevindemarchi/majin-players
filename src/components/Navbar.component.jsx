@@ -12,6 +12,7 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
+    const isDarkMode = theme === "dark";
     const paths = pathname.split("/");
     const section = isAdmin ? paths[2] : paths[1];
 
@@ -60,15 +61,15 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
         <div className="flex flex-row items-center gap-5 desktop:flex phone:hidden">
             <IconButton theme={theme} onClick={themeHandler}>
                 {theme === "light" ? (
-                    <MoonIcon className="text-2xl text-blue" />
+                    <MoonIcon className="text-2xl text-black" />
                 ) : (
-                    <SunIcon className="text-2xl text-blue text-white" />
+                    <SunIcon className="text-2xl text-white" />
                 )}
             </IconButton>
             <button onClick={logoutHandler}>
                 <LogoutIcon
                     className={`text-2xl ${
-                        theme === "dark" ? "text-white" : "text-black"
+                        isDarkMode ? "text-white" : "text-black"
                     }`}
                 />
             </button>
@@ -77,8 +78,8 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
 
     return (
         <div
-            className={`h-32 flex flex-row items-center justify-around transition-all duration-200 fixed w-full ${
-                theme === "dark" ? "bg-black" : "bg-white"
+            className={`h-32 flex flex-row items-center justify-around transition-all duration-200 fixed z-10 w-full ${
+                isDarkMode ? "bg-black" : "bg-white"
             }`}
         >
             {logo}

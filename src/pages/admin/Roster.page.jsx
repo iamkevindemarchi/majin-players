@@ -1,0 +1,250 @@
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+
+// Api
+import { PLAYERS_API } from "../../api";
+
+// Assets
+import { AddIcon, CancelIcon, SearchIcon } from "../../assets/icons";
+
+// Components
+import { Button, IconButton, Input, Modal, Table } from "../../components";
+
+// Contexts
+import { LoaderContext, SnackbarContext, ThemeContext } from "../../providers";
+
+// Utils
+import { setPageTitle } from "../../utils";
+
+const initialState = {
+    name: "",
+    surname: "",
+};
+
+const Roster = () => {
+    const { theme } = useContext(ThemeContext);
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const [tableData, setTableData] = useState([]);
+    const { setIsLoading } = useContext(LoaderContext);
+    const [totalRecords, setTotalRecords] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(parseInt(searchParams.get("page")) || 0);
+    const [from, setFrom] = useState(parseInt(searchParams.get("from")) || 0);
+    const [values, setValues] = useState({
+        name: searchParams.get("name") || "",
+        surname: searchParams.get("surname") || "",
+    });
+    const newQueryParameters = new URLSearchParams();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
+    const { activeSnackbar } = useContext(SnackbarContext);
+
+    const isDarkMode = theme === "dark";
+    const dataForPage = 5;
+
+    setPageTitle("Roster");
+
+    async function getPlayersHandler(
+        name = values.name,
+        surname = values.surname
+    ) {
+        setIsLoading(true);
+        const res = await PLAYERS_API.getAll(from, dataForPage, name, surname);
+        res
+            ? setTableData(res)
+            : activeSnackbar("error", "Impossibile recuperare i giocatori");
+        setIsLoading(false);
+    }
+
+    async function getTotalPlayersHandler() {
+        setIsLoading(true);
+        const res = await PLAYERS_API.getTotalRecords(
+            values.name,
+            values.surname
+        );
+        res || res === 0
+            ? setTotalRecords(res)
+            : activeSnackbar("error", "Impossibile recuperare il totale");
+        setIsLoading(false);
+    }
+
+    const title = (
+        <h1
+            className={`transition-all duration-200 desktop:text-3xl phone:text-2xl text-center font-bold uppercase ${
+                isDarkMode ? "text-white" : "text-black"
+            }`}
+        >
+            Roster giocatori
+        </h1>
+    );
+
+    function inputHandler(event) {
+        setValues((prevState) => {
+            return { ...prevState, [event.target.name]: event.target.value };
+        });
+    }
+
+    function updateQueryParams() {
+        newQueryParameters.set("name", values.name);
+        newQueryParameters.set("surname", values.surname);
+        newQueryParameters.set("page", page);
+        newQueryParameters.set("from", from);
+        setSearchParams(newQueryParameters);
+    }
+
+    function searchHandler(event) {
+        event.preventDefault();
+        setPage(0);
+        setFrom(0);
+        updateQueryParams();
+        getPlayersHandler();
+    }
+
+    const filters = (
+        <form className="flex desktop:flex-row gap-5 phone:flex-col phone:justify-center phone:items-center">
+            <Input
+                placeholder="Nome"
+                theme={theme}
+                name="name"
+                value={values.name}
+                onChange={inputHandler}
+            />
+            <Input
+                placeholder="Cognome"
+                theme={theme}
+                name="surname"
+                value={values.surname}
+                onChange={inputHandler}
+            />
+            <div className="flex flex-row gap-5">
+                <Button onClick={searchHandler}>
+                    <SearchIcon />
+                    <span>Cerca</span>
+                </Button>
+                <Button
+                    type="submit"
+                    variant="cancel"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        setValues(initialState);
+                        getPlayersHandler("", "");
+                    }}
+                    theme={theme}
+                >
+                    <CancelIcon />
+                    <span>Reset</span>
+                </Button>
+            </div>
+        </form>
+    );
+
+    const tableColumns = [
+        { key: "name", label: "Nome" },
+        { key: "surname", label: "Cognome" },
+        { key: "email", label: "E-mail" },
+        { key: "birthDate", label: "Data di nascita" },
+        { key: "actions", label: "" },
+    ];
+
+    function tableRowHandler(rowData) {
+        navigate(`${pathname}/${rowData.id}`);
+    }
+
+    function tableDeleteHandler(rowData) {
+        setSelectedPlayer(rowData);
+        setIsDeleteModalOpen(true);
+    }
+
+    const table = (
+        <Table
+            columns={tableColumns}
+            data={tableData}
+            theme={theme}
+            onRowClick={tableRowHandler}
+            dataForPage={dataForPage}
+            page={page}
+            setPage={setPage}
+            from={from}
+            setFrom={setFrom}
+            totalRecords={totalRecords}
+            onDelete={tableDeleteHandler}
+        />
+    );
+
+    function pageHandler(partialUrl) {
+        navigate(`${pathname}/${partialUrl}`);
+    }
+
+    const addBtn = (
+        <IconButton
+            onClick={() => pageHandler("new")}
+            variant="add"
+            theme={theme}
+        >
+            <AddIcon />
+        </IconButton>
+    );
+
+    async function deletePlayerHandler() {
+        setIsDeleteModalOpen(false);
+        setIsLoading(true);
+        const res = await PLAYERS_API.deletePlayer(selectedPlayer.id);
+        res
+            ? activeSnackbar("success", "Giocatore eliminato con successo")
+            : activeSnackbar("error", "Impossibile eliminare il giocatore");
+        await getPlayersHandler();
+        await getTotalPlayersHandler();
+        setIsLoading(false);
+    }
+
+    const selectedPlayerFullName = `${selectedPlayer?.name} ${selectedPlayer?.surname}`;
+    const deleteModal = (
+        <Modal
+            title="Eliminazione giocatore"
+            isOpen={isDeleteModalOpen}
+            onSubmit={deletePlayerHandler}
+            onClose={() => setIsDeleteModalOpen(false)}
+        >
+            <span>
+                Sicuro di voler eliminare il seguente giocatore?{" "}
+                <span className="text-primary font-bold">
+                    {selectedPlayerFullName}
+                </span>
+            </span>
+        </Modal>
+    );
+
+    useEffect(() => {
+        getTotalPlayersHandler();
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        getPlayersHandler();
+        // eslint-disable-next-line
+    }, [page]);
+
+    useEffect(() => {
+        updateQueryParams();
+        // eslint-disable-next-line
+    }, [page, from, values.name, values.surname]);
+
+    return (
+        <>
+            <div
+                className={`flex flex-col gap-10 desktop:pt-60 desktop:px-[20%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
+                    isDarkMode ? "bg-pink2-dark" : "bg-pink2"
+                }`}
+            >
+                {title}
+                {filters}
+                {table}
+                {addBtn}
+            </div>
+            {deleteModal}
+        </>
+    );
+};
+
+export default Roster;
