@@ -86,7 +86,7 @@ const Sidebar = ({
                 }}
             >
                 <LogoutIcon
-                    className={`text-2xl ${
+                    className={`text-3xl ${
                         isDarkMode ? "text-white" : "text-black"
                     }`}
                 />

@@ -1,1 +1,1 @@
-export { CiLogout as LogoutIcon } from "react-icons/ci";
+export { RiLogoutBoxLine  as LogoutIcon } from "react-icons/ri";
