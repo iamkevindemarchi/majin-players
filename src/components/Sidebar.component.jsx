@@ -20,6 +20,7 @@ const Sidebar = ({
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
+    const isDarkMode = theme === "dark";
     const paths = pathname.split("/");
     const section = isAdmin ? paths[2] : paths[1];
 
@@ -86,7 +87,7 @@ const Sidebar = ({
             >
                 <LogoutIcon
                     className={`text-2xl ${
-                        theme === "dark" ? "text-white" : "text-black"
+                        isDarkMode ? "text-white" : "text-black"
                     }`}
                 />
             </button>
@@ -95,9 +96,9 @@ const Sidebar = ({
 
     return (
         <div
-            className={`desktop:hidden phone:flex flex-col gap-10 transition-all duration-200 absolute w-full justify-center items-center h-full ${
+            className={`desktop:hidden phone:flex flex-col gap-10 transition-all duration-200 absolute w-full justify-center items-center h-full z-[950] ${
                 isOpen ? "top-0 opacity-100" : "top-[-100%] opacity-[0]"
-            } ${theme === "dark" ? "bg-black" : "bg-white"}`}
+            } ${isDarkMode ? "bg-black" : "bg-white"}`}
         >
             {logo}
             {routesComponent}
