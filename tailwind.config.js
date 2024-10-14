@@ -18,6 +18,7 @@ module.exports = {
             pink3: "#ffcfd7",
             "pink3-dark": "#6e5a5e",
             backdrop: "#0000009a",
+            "backdrop-dark": "#2121219a",
             red: "#ff0000",
             "red-dark": "#9b0000",
             green: "#2ac424",
