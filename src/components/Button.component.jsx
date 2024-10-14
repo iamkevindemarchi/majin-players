@@ -4,7 +4,10 @@ const Button = ({ type, onClick, variant, children }) => {
     return (
         <button
             type={type}
-            onClick={onClick}
+            onClick={(event) => {
+                event.preventDefault();
+                onClick();
+            }}
             className={`transition-all duration-200 px-8 phone:py-3 rounded-3xl flex flex-row gap-2 items-center hover:opacity-50 ${
                 variant === "cancel"
                     ? "bg-transparent border-2 border-primary text-primary"

@@ -93,8 +93,7 @@ const Roster = () => {
         setSearchParams(newQueryParameters);
     }
 
-    function searchHandler(event) {
-        event.preventDefault();
+    function searchHandler() {
         setPage(0);
         setFrom(0);
         updateQueryParams();
@@ -126,8 +125,7 @@ const Roster = () => {
                 <Button
                     type="submit"
                     variant="cancel"
-                    onClick={(event) => {
-                        event.preventDefault();
+                    onClick={() => {
                         setValues(initialState);
                         getPlayersHandler("", "");
                     }}
