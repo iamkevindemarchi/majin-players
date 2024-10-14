@@ -5,6 +5,8 @@ import {
     AdminPlayer,
     AdminSponsors,
     AdminSponsor,
+    AdminEquipments,
+    AdminEquipment,
 } from "./pages/admin";
 import { Login } from "./pages";
 
@@ -38,8 +40,20 @@ export const ADMIN_ROUTES = [
     },
     {
         path: "/admin/equipment",
-        element: <Dashboard />,
+        element: <AdminEquipments />,
         name: "Equipaggiamento",
+    },
+    {
+        path: "/admin/equipment/new",
+        element: <AdminEquipment />,
+        name: "Nuovo equipaggiamento",
+        isHidden: true,
+    },
+    {
+        path: "/admin/equipment/edit/:equipmentId",
+        element: <AdminEquipment />,
+        name: "Modifica equipaggiamento",
+        isHidden: true,
     },
 ];
 
