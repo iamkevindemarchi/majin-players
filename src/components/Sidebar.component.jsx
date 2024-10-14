@@ -40,7 +40,7 @@ const Sidebar = ({
     );
 
     const routesComponent = (
-        <div className="flex flex-col gap-5 items-center justify-around w-[50%]">
+        <div className="flex flex-col gap-5 items-center justify-around w-full">
             {routes.map((route) => {
                 const pathname = route.path;
                 const paths = pathname.split("/");

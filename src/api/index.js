@@ -3,3 +3,4 @@ export { PLAYERS_API } from "./players.api";
 export { IMAGES_API } from "./images.api";
 export { TOP_API } from "./top.api";
 export { SPONSOR_API } from "./sponsor.api";
+export { EQUIPMENT_API } from "./equipment.api";
