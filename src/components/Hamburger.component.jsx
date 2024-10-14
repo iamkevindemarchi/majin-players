@@ -17,7 +17,7 @@ const Hamburger = ({ isOpen, onClick, theme }) => {
     return (
         <div
             onClick={onClick}
-            className={`desktop:hidden phone:flex fixed top-[7%] left-[7%] flex-col justify-around w-[2em] h-[2em] z-[980]`}
+            className={`desktop:hidden computer:hidden phone:flex fixed top-[7%] left-[7%] flex-col justify-around w-[2em] h-[2em] z-[980]`}
         >
             {lines}
         </div>
