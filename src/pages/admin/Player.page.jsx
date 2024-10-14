@@ -46,6 +46,7 @@ const initialState = {
     birthYear: "",
     favouriteCard: "",
     favouriteDeck: "",
+    instagramLink: "",
     description: "",
     topYear: "",
     topPlacement: "",
@@ -272,6 +273,7 @@ const Player = () => {
                 birthYear: formDataValues.birthYear,
                 favouriteCard: formDataValues.favouriteCard,
                 favouriteDeck: formDataValues.favouriteDeck,
+                instagramLink: formDataValues.instagramLink,
                 description: formDataValues.description,
             };
 
@@ -309,6 +311,7 @@ const Player = () => {
                 birthYear: formDataValues.birthYear,
                 favouriteCard: formDataValues.favouriteCard,
                 favouriteDeck: formDataValues.favouriteDeck,
+                instagramLink: formDataValues.instagramLink,
                 description: formDataValues.description,
             };
 
@@ -401,6 +404,14 @@ const Player = () => {
                     theme={theme}
                 />
             </div>
+            <Input
+                name="instagramLink"
+                placeholder="Link Instagram"
+                value={formDataValues.instagramLink}
+                onChange={inputHandler}
+                theme={theme}
+                className="w-full"
+            />
             <TextArea
                 name="description"
                 placeholder="Descrizione"
@@ -512,7 +523,7 @@ const Player = () => {
             <span className="uppercase font-bold text-2xl text-primary">
                 Top
             </span>
-            <div className="w-full flex desktop:flex-row computer:flex-row phone:flex-col desktop:gap-0 computer:gap-0 phone:gap-5 justify-between">
+            <div className="w-full flex desktop:flex-row computer:flex-row phone:flex-col desktop:gap-5 computer:gap-5 phone:gap-5 justify-between">
                 <Input
                     type="number"
                     name="topYear"
