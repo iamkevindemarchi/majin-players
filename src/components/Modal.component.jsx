@@ -29,7 +29,7 @@ const Modal = ({
             <Backdrop pointer>
                 <div
                     ref={componentRef}
-                    className="desktop:w-[25%] phone:w-[90%] p-10 bg-white rounded-3xl flex flex-col gap-5 cursor-auto"
+                    className="desktop:w-[35%] computer:w-[35%] phone:w-[90%] p-10 bg-white rounded-3xl flex flex-col gap-5 cursor-auto"
                 >
                     {titleComponent}
                     {children}

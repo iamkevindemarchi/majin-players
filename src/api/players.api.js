@@ -34,7 +34,22 @@ export const PLAYERS_API = {
         }
     },
 
-    getTotalRecords: async (name = "", surname = "") => {
+    get: async (id) => {
+        try {
+            const { data: res, error } = await supabase
+                .from(TABLE_NAME)
+                .select()
+                .eq("id", id);
+
+            if (error) return false;
+
+            return res[0];
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
+    },
+
+    getAllRecords: async (name = "", surname = "") => {
         try {
             const { count, error } = await supabase
                 .from(TABLE_NAME)
@@ -50,7 +65,38 @@ export const PLAYERS_API = {
         }
     },
 
-    deletePlayer: async (id) => {
+    create: async (data) => {
+        try {
+            const { data: res, error } = await supabase
+                .from(TABLE_NAME)
+                .insert(data)
+                .select();
+
+            if (error) return false;
+
+            return res[0];
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
+    },
+
+    update: async (data, id) => {
+        try {
+            const { data: res, error } = await supabase
+                .from(TABLE_NAME)
+                .update(data)
+                .eq("id", id)
+                .select();
+
+            if (error) return false;
+
+            return res[0];
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
+    },
+
+    delete: async (id) => {
         try {
             const { error } = await supabase
                 .from(TABLE_NAME)

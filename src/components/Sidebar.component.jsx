@@ -46,8 +46,10 @@ const Sidebar = ({
                 const paths = pathname.split("/");
                 const currentSection = isAdmin ? paths[2] : paths[1];
                 const isActiveRoute = section === currentSection;
+                const isRouteHidden = route.isHidden;
 
                 return (
+                    !isRouteHidden &&
                     route.path !== "/admin" && (
                         <Link
                             key={route.path}
@@ -96,7 +98,7 @@ const Sidebar = ({
 
     return (
         <div
-            className={`desktop:hidden phone:flex flex-col gap-10 transition-all duration-200 absolute w-full justify-center items-center h-full z-[950] ${
+            className={`desktop:hidden computer:hidden phone:flex flex-col gap-10 transition-all duration-200 absolute w-full justify-center items-center h-full z-[950] ${
                 isOpen ? "top-0 opacity-100" : "top-[-100%] opacity-[0]"
             } ${isDarkMode ? "bg-black" : "bg-white"}`}
         >

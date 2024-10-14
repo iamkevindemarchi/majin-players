@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 // Api
-import { PLAYERS_API } from "../../api";
+import { IMAGES_API, PLAYERS_API, TOP_API } from "../../api";
 
 // Assets
 import { AddIcon, CancelIcon, SearchIcon } from "../../assets/icons";
@@ -59,7 +59,7 @@ const Roster = () => {
 
     async function getTotalPlayersHandler() {
         setIsLoading(true);
-        const res = await PLAYERS_API.getTotalRecords(
+        const res = await PLAYERS_API.getAllRecords(
             values.name,
             values.surname
         );
@@ -71,7 +71,7 @@ const Roster = () => {
 
     const title = (
         <h1
-            className={`transition-all duration-200 desktop:text-3xl phone:text-2xl text-center font-bold uppercase ${
+            className={`transition-all duration-200 desktop:text-3xl computer:text-3xl phone:text-2xl text-center font-bold uppercase ${
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
@@ -102,7 +102,7 @@ const Roster = () => {
     }
 
     const filters = (
-        <form className="flex desktop:flex-row gap-5 phone:flex-col phone:justify-center phone:items-center">
+        <form className="flex desktop:flex-row computer:flex-row gap-5 phone:flex-col phone:justify-center phone:items-center w-full">
             <Input
                 placeholder="Nome"
                 theme={theme}
@@ -143,12 +143,12 @@ const Roster = () => {
         { key: "name", label: "Nome" },
         { key: "surname", label: "Cognome" },
         { key: "email", label: "E-mail" },
-        { key: "birthDate", label: "Data di nascita" },
+        { key: "birthYear", label: "Anno di nascita" },
         { key: "actions", label: "" },
     ];
 
     function tableRowHandler(rowData) {
-        navigate(`${pathname}/${rowData.id}`);
+        navigate(`${pathname}/edit/${rowData.id}`);
     }
 
     function tableDeleteHandler(rowData) {
@@ -189,12 +189,24 @@ const Roster = () => {
     async function deletePlayerHandler() {
         setIsDeleteModalOpen(false);
         setIsLoading(true);
-        const res = await PLAYERS_API.deletePlayer(selectedPlayer.id);
-        res
-            ? activeSnackbar("success", "Giocatore eliminato con successo")
-            : activeSnackbar("error", "Impossibile eliminare il giocatore");
-        await getPlayersHandler();
-        await getTotalPlayersHandler();
+
+        const res = await PLAYERS_API.delete(selectedPlayer.id);
+        if (res) {
+            const imageRes = await IMAGES_API.delete(selectedPlayer.img);
+            if (imageRes) {
+                const topRes = await TOP_API.deleteAll(selectedPlayer.id);
+
+                if (topRes) {
+                    activeSnackbar(
+                        "success",
+                        "Giocatore eliminato con successo"
+                    );
+                    await getPlayersHandler();
+                    await getTotalPlayersHandler();
+                } else activeSnackbar("error", "Impossibile eliminare le top");
+            } else activeSnackbar("error", "Impossibile eliminare l'immagine");
+        } else activeSnackbar("error", "Impossibile eliminare il giocatore");
+
         setIsLoading(false);
     }
 
@@ -233,7 +245,7 @@ const Roster = () => {
     return (
         <>
             <div
-                className={`flex flex-col gap-10 desktop:pt-60 desktop:px-[20%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
+                className={`flex flex-col gap-10 desktop:pt-60 desktop:px-[20%] computer:pt-60 computer:px-[20%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
                     isDarkMode ? "bg-pink2-dark" : "bg-pink2"
                 }`}
             >

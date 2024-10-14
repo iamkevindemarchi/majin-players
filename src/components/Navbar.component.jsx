@@ -31,14 +31,16 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     );
 
     const routesComponent = (
-        <div className="flex-row items-center justify-around w-[50%] desktop:flex phone:hidden">
+        <div className="flex-row items-center justify-around w-[50%] desktop:flex computer:flex phone:hidden">
             {routes.map((route) => {
                 const pathname = route.path;
                 const paths = pathname.split("/");
                 const currentSection = isAdmin ? paths[2] : paths[1];
                 const isActiveRoute = section === currentSection;
+                const isRouteHidden = route.isHidden;
 
                 return (
+                    !isRouteHidden &&
                     route.path !== "/admin" && (
                         <Link
                             key={route.path}
@@ -58,7 +60,7 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     );
 
     const icons = (
-        <div className="flex flex-row items-center gap-5 desktop:flex phone:hidden">
+        <div className="flex flex-row items-center gap-5 desktop:flex computer:flex phone:hidden">
             <IconButton theme={theme} onClick={themeHandler}>
                 {theme === "light" ? (
                     <MoonIcon className="text-2xl text-black" />

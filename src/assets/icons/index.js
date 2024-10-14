@@ -9,3 +9,7 @@ export { DeleteIcon } from "./delete.icon";
 export { AddIcon } from "./add.icon";
 export { ErrorIcon } from "./error.icon";
 export { VerifiedIcon } from "./verified.icon";
+export { UserIcon } from "./user.icon";
+export { SaveIcon } from "./save.icon";
+export { BackIcon } from "./back.icon";
+export { EditIcon } from "./edit.icon";
