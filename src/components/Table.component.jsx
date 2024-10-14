@@ -59,46 +59,29 @@ const Table = ({
     );
 
     const footer = (
-        <>
-            {!hasData && (
-                <div
-                    className={`transition-all duration-200 w-full flex justify-center text-center p-5 ${
-                        isDarkMode ? "bg-black" : "bg-white"
-                    }`}
+        <div
+            className={`transition-all duration-200 desktop:px-10 desktop:py-3 desktop:z-0 desktop:relative desktop:w-full computer:px-10 computer:py-3 computer:z-0 computer:relative computer:w-full phone:px-5 phone:py-2 rounded-b-lg flex justify-between phone:absolute phone:z-10 phone:w-[90%] ${
+                isDarkMode ? "bg-pink-dark" : "bg-pink"
+            }`}
+        >
+            <span className={`${isDarkMode ? "text-white" : "text-black"}`}>
+                Tot: {totalRecords}
+            </span>
+            <div className="flex flex-row gap-5">
+                <ArrowBtn
+                    disabled={isPreviousPageBtnDisabled}
+                    onClick={previousPageHandler}
                 >
-                    <span
-                        className={`transition-all duration-200 text-base ${
-                            isDarkMode ? "text-white" : "text-black"
-                        }`}
-                    >
-                        Nessun risultato...
-                    </span>
-                </div>
-            )}
-            <div
-                className={`transition-all duration-200 desktop:px-10 desktop:py-3 desktop:z-0 desktop:relative desktop:w-full computer:px-10 computer:py-3 computer:z-0 computer:relative computer:w-full phone:px-5 phone:py-2 rounded-b-lg flex justify-between phone:absolute phone:z-10 phone:w-[90%] ${
-                    isDarkMode ? "bg-pink-dark" : "bg-pink"
-                }`}
-            >
-                <span className={`${isDarkMode ? "text-white" : "text-black"}`}>
-                    Tot: {totalRecords}
-                </span>
-                <div className="flex flex-row gap-5">
-                    <ArrowBtn
-                        disabled={isPreviousPageBtnDisabled}
-                        onClick={previousPageHandler}
-                    >
-                        <LeftArrowIcon className="transition-all duration-200 text-2xl" />
-                    </ArrowBtn>
-                    <ArrowBtn
-                        disabled={isNextPageBtnDisabled}
-                        onClick={nextPageHandler}
-                    >
-                        <RightArrowIcon className="transition-all duration-200 text-2xl" />
-                    </ArrowBtn>
-                </div>
+                    <LeftArrowIcon className="transition-all duration-200 text-2xl" />
+                </ArrowBtn>
+                <ArrowBtn
+                    disabled={isNextPageBtnDisabled}
+                    onClick={nextPageHandler}
+                >
+                    <RightArrowIcon className="transition-all duration-200 text-2xl" />
+                </ArrowBtn>
             </div>
-        </>
+        </div>
     );
 
     useEffect(() => {
@@ -106,7 +89,7 @@ const Table = ({
         setIsNextPageBtnDisabled(!canGoNext || totalRecords <= dataForPage);
     }, [canGoPrevious, canGoNext, totalRecords, dataForPage]);
 
-    return (
+    return hasData ? (
         <div className="desktop:overflow-hidden computer:overflow-hidden phone:overflow-x-scroll">
             <table className="w-full rounded-t-lg border-none border-collapse border-spacing-0">
                 <thead
@@ -194,6 +177,16 @@ const Table = ({
                 )}
             </table>
             {footer}
+        </div>
+    ) : (
+        <div className="w-full flex justify-center text-center mt-20">
+            <span
+                className={`transition-all duration-200 text-base ${
+                    isDarkMode ? "text-white" : "text-black"
+                }`}
+            >
+                Nessun risultato...
+            </span>
         </div>
     );
 };
