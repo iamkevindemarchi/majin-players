@@ -1,10 +1,12 @@
 import React from "react";
 
-const Backdrop = ({ pointer, children }) => {
+const Backdrop = ({ theme, children }) => {
+    const isDarkMode = theme === "dark";
+
     return (
         <div
-            className={`fixed z-[999] bg-backdrop w-full h-[100vh] flex justify-center items-center top-0 left-0 ${
-                pointer && "cursor-pointer"
+            className={`fixed z-[999] w-full h-[100vh] flex justify-center items-center top-0 left-0 ${
+                isDarkMode ? "bg-backdrop-dark" : "bg-backdrop"
             }`}
         >
             {children}

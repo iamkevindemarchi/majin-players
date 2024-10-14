@@ -611,8 +611,9 @@ const Player = () => {
             isOpen={isDeleteModalOpen}
             onSubmit={deleteTopHandler}
             onClose={() => setIsDeleteModalOpen(false)}
+            theme={theme}
         >
-            <span>
+            <span className={`${isDarkMode ? "text-white" : "text-black"}`}>
                 Sicuro di voler eliminare la top del seguente evento?{" "}
                 <span className="text-primary font-bold">
                     {selectedTop?.event}

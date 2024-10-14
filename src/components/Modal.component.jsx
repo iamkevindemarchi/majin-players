@@ -12,19 +12,30 @@ const Modal = ({
     cancelLabel = "No",
     onSubmit,
     onClose,
+    theme,
 }) => {
     const componentRef = useRef();
 
+    const isDarkMode = theme === "dark";
+
     const titleComponent = (
-        <span className="font-bold uppercase text-xl">{title}</span>
+        <span
+            className={`transition-all duration-200 font-bold uppercase text-xl ${
+                isDarkMode ? "text-white" : "text-black"
+            }`}
+        >
+            {title}
+        </span>
     );
 
     return (
         isOpen && (
-            <Backdrop pointer>
+            <Backdrop theme={theme}>
                 <div
                     ref={componentRef}
-                    className="desktop:w-[35%] computer:w-[35%] phone:w-[90%] p-10 bg-white rounded-3xl flex flex-col gap-5 cursor-auto"
+                    className={`transition-all duration-200 desktop:w-[35%] computer:w-[35%] phone:w-[90%] p-10 rounded-3xl flex flex-col gap-5 cursor-auto ${
+                        isDarkMode ? "bg-black" : "bg-white"
+                    }`}
                 >
                     {titleComponent}
                     {children}

@@ -216,8 +216,9 @@ const Roster = () => {
             isOpen={isDeleteModalOpen}
             onSubmit={deletePlayerHandler}
             onClose={() => setIsDeleteModalOpen(false)}
+            theme={theme}
         >
-            <span>
+            <span className={`${isDarkMode ? "text-white" : "text-black"}`}>
                 Sicuro di voler eliminare il seguente giocatore?{" "}
                 <span className="text-primary font-bold">
                     {selectedPlayerFullName}
