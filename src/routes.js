@@ -1,5 +1,11 @@
 // Pages
-import { Dashboard, AdminRoster, AdminPlayer } from "./pages/admin";
+import {
+    Dashboard,
+    AdminRoster,
+    AdminPlayer,
+    AdminSponsors,
+    AdminSponsor,
+} from "./pages/admin";
 import { Login } from "./pages";
 
 export const ADMIN_ROUTES = [
@@ -17,7 +23,19 @@ export const ADMIN_ROUTES = [
         name: "Modifica giocatore",
         isHidden: true,
     },
-    { path: "/admin/sponsor", element: <Dashboard />, name: "Sponsor" },
+    { path: "/admin/sponsor", element: <AdminSponsors />, name: "Sponsor" },
+    {
+        path: "/admin/sponsor/new",
+        element: <AdminSponsor />,
+        name: "Nuovo sponsor",
+        isHidden: true,
+    },
+    {
+        path: "/admin/sponsor/edit/:sponsorId",
+        element: <AdminSponsor />,
+        name: "Modifica sponsor",
+        isHidden: true,
+    },
     {
         path: "/admin/equipment",
         element: <Dashboard />,
