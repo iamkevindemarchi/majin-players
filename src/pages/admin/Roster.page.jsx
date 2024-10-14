@@ -109,6 +109,7 @@ const Roster = () => {
                 name="name"
                 value={values.name}
                 onChange={inputHandler}
+                autofocus
             />
             <Input
                 placeholder="Cognome"
