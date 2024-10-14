@@ -157,11 +157,9 @@ const Table = ({
                                                 {isActionCell ? (
                                                     <IconButton
                                                         theme={theme}
-                                                        onClick={(event) => {
-                                                            event.preventDefault();
-                                                            event.stopPropagation();
-                                                            onDelete(item);
-                                                        }}
+                                                        onClick={(event) =>
+                                                            onDelete(item)
+                                                        }
                                                     >
                                                         <DeleteIcon
                                                             className={`transition-all duration-200 text-lg ${

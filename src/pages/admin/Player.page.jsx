@@ -135,8 +135,7 @@ const Player = () => {
         setIsLoading(false);
     }
 
-    function goBackToRosterHandler(event) {
-        event.preventDefault();
+    function goBackToRosterHandler() {
         navigate(`/admin/roster`);
     }
 
@@ -258,8 +257,7 @@ const Player = () => {
         else return true;
     }
 
-    async function createHandler(event) {
-        event.preventDefault();
+    async function createHandler() {
         setIsLoading(true);
         const isFormValid = validateForm();
 
@@ -295,8 +293,7 @@ const Player = () => {
         setIsLoading(false);
     }
 
-    async function editHandler(event) {
-        event.preventDefault();
+    async function editHandler() {
         setIsLoading(true);
         const isFormValid = validateForm();
 
@@ -473,8 +470,7 @@ const Player = () => {
         else return true;
     }
 
-    async function topSubmitHandler(event) {
-        event.preventDefault();
+    async function topSubmitHandler() {
         setIsLoading(true);
         const isFormValid = validateTopForm();
 
@@ -585,8 +581,7 @@ const Player = () => {
                             <span className="text-md">{top.deck}</span>
                         </div>
                         <DeleteIcon
-                            onClick={(event) => {
-                                event.preventDefault();
+                            onClick={() => {
                                 topDeleteHandler(top);
                                 setIsDeleteModalOpen(true);
                             }}
