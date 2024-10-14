@@ -4,9 +4,6 @@ import React, { useRef } from "react";
 import Backdrop from "./Backdrop.component";
 import Button from "./Button.component";
 
-// Hooks
-import { useClickOutside } from "../hooks/useClickOutside";
-
 const Modal = ({
     title,
     isOpen,
@@ -21,8 +18,6 @@ const Modal = ({
     const titleComponent = (
         <span className="font-bold uppercase text-xl">{title}</span>
     );
-
-    useClickOutside(componentRef, () => onClose());
 
     return (
         isOpen && (
