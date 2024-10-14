@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 // Api
-import { IMAGES_API, PLAYERS_API, TOP_API } from "../../api";
+import { IMAGES_API, SPONSOR_API, TOP_API } from "../../api";
 
 // Assets
 import { AddIcon, CancelIcon, SearchIcon } from "../../assets/icons";
@@ -18,10 +18,9 @@ import { setPageTitle } from "../../utils";
 
 const initialState = {
     name: "",
-    surname: "",
 };
 
-const Roster = () => {
+const Sponsors = () => {
     const { theme } = useContext(ThemeContext);
     const navigate = useNavigate();
     const { pathname } = useLocation();
@@ -33,36 +32,29 @@ const Roster = () => {
     const [from, setFrom] = useState(parseInt(searchParams.get("from")) || 0);
     const [values, setValues] = useState({
         name: searchParams.get("name") || "",
-        surname: searchParams.get("surname") || "",
     });
     const newQueryParameters = new URLSearchParams();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [selectedPlayer, setSelectedPlayer] = useState(null);
+    const [selectedSponsor, setSelectedSponsor] = useState(null);
     const { activeSnackbar } = useContext(SnackbarContext);
 
     const isDarkMode = theme === "dark";
     const dataForPage = 5;
 
-    setPageTitle("Roster");
+    setPageTitle("Sponsor");
 
-    async function getPlayersHandler(
-        name = values.name,
-        surname = values.surname
-    ) {
+    async function getSponsorsHandler(name = values.name) {
         setIsLoading(true);
-        const res = await PLAYERS_API.getAll(from, dataForPage, name, surname);
+        const res = await SPONSOR_API.getAll(from, dataForPage, name);
         res
             ? setTableData(res)
-            : activeSnackbar("error", "Impossibile recuperare i giocatori");
+            : activeSnackbar("error", "Impossibile recuperare gli sponsor");
         setIsLoading(false);
     }
 
-    async function getTotalPlayersHandler(
-        name = values.name,
-        surname = values.surname
-    ) {
+    async function getTotalSponsorsHandler(name = values.name) {
         setIsLoading(true);
-        const res = await PLAYERS_API.getAllRecords(name, surname);
+        const res = await SPONSOR_API.getAllRecords(name);
         res || res === 0
             ? setTotalRecords(res)
             : activeSnackbar("error", "Impossibile recuperare il totale");
@@ -75,7 +67,7 @@ const Roster = () => {
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
-            Roster giocatori
+            Sponsor
         </h1>
     );
 
@@ -87,7 +79,6 @@ const Roster = () => {
 
     function updateQueryParams() {
         newQueryParameters.set("name", values.name);
-        newQueryParameters.set("surname", values.surname);
         newQueryParameters.set("page", page);
         newQueryParameters.set("from", from);
         setSearchParams(newQueryParameters);
@@ -97,8 +88,8 @@ const Roster = () => {
         setPage(0);
         setFrom(0);
         updateQueryParams();
-        getPlayersHandler();
-        getTotalPlayersHandler();
+        getSponsorsHandler();
+        getTotalSponsorsHandler();
     }
 
     const filters = (
@@ -111,13 +102,6 @@ const Roster = () => {
                 onChange={inputHandler}
                 autofocus
             />
-            <Input
-                placeholder="Cognome"
-                theme={theme}
-                name="surname"
-                value={values.surname}
-                onChange={inputHandler}
-            />
             <div className="flex flex-row gap-5">
                 <Button onClick={searchHandler}>
                     <SearchIcon />
@@ -128,8 +112,8 @@ const Roster = () => {
                     variant="cancel"
                     onClick={() => {
                         setValues(initialState);
-                        getPlayersHandler("", "");
-                        getTotalPlayersHandler("", "");
+                        getSponsorsHandler("", "");
+                        getTotalSponsorsHandler("");
                     }}
                     theme={theme}
                 >
@@ -142,9 +126,6 @@ const Roster = () => {
 
     const tableColumns = [
         { key: "name", label: "Nome" },
-        { key: "surname", label: "Cognome" },
-        { key: "email", label: "E-mail" },
-        { key: "birthYear", label: "Anno di nascita" },
         { key: "actions", label: "" },
     ];
 
@@ -153,7 +134,7 @@ const Roster = () => {
     }
 
     function tableDeleteHandler(rowData) {
-        setSelectedPlayer(rowData);
+        setSelectedSponsor(rowData);
         setIsDeleteModalOpen(true);
     }
 
@@ -187,62 +168,58 @@ const Roster = () => {
         </IconButton>
     );
 
-    async function deletePlayerHandler() {
+    async function deleteSponsorHandler() {
         setIsDeleteModalOpen(false);
         setIsLoading(true);
 
-        const res = await PLAYERS_API.delete(selectedPlayer.id);
+        const res = await SPONSOR_API.delete(selectedSponsor.id);
         if (res) {
-            const imageRes = await IMAGES_API.delete(selectedPlayer.img);
+            const imageRes = await IMAGES_API.delete(selectedSponsor.img);
             if (imageRes) {
-                const topRes = await TOP_API.deleteAll(selectedPlayer.id);
+                const topRes = await TOP_API.deleteAll(selectedSponsor.id);
 
                 if (topRes) {
-                    activeSnackbar(
-                        "success",
-                        "Giocatore eliminato con successo"
-                    );
-                    await getPlayersHandler();
-                    await getTotalPlayersHandler();
+                    activeSnackbar("success", "Sponsor eliminato con successo");
+                    await getSponsorsHandler();
+                    await getTotalSponsorsHandler();
                 } else activeSnackbar("error", "Impossibile eliminare le top");
             } else activeSnackbar("error", "Impossibile eliminare l'immagine");
-        } else activeSnackbar("error", "Impossibile eliminare il giocatore");
+        } else activeSnackbar("error", "Impossibile eliminare lo sponsor");
 
         setIsLoading(false);
     }
 
-    const selectedPlayerFullName = `${selectedPlayer?.name} ${selectedPlayer?.surname}`;
     const deleteModal = (
         <Modal
-            title="Eliminazione giocatore"
+            title="Eliminazione sponsor"
             isOpen={isDeleteModalOpen}
-            onSubmit={deletePlayerHandler}
+            onSubmit={deleteSponsorHandler}
             onClose={() => setIsDeleteModalOpen(false)}
             theme={theme}
         >
             <span className={`${isDarkMode ? "text-white" : "text-black"}`}>
-                Sicuro di voler eliminare il seguente giocatore?{" "}
+                Sicuro di voler eliminare il seguente sponsor?{" "}
                 <span className="text-primary font-bold">
-                    {selectedPlayerFullName}
+                    {selectedSponsor?.name}
                 </span>
             </span>
         </Modal>
     );
 
     useEffect(() => {
-        getTotalPlayersHandler();
+        getTotalSponsorsHandler();
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
-        getPlayersHandler();
+        getSponsorsHandler();
         // eslint-disable-next-line
     }, [page]);
 
     useEffect(() => {
         updateQueryParams();
         // eslint-disable-next-line
-    }, [page, from, values.name, values.surname]);
+    }, [page, from, values.name]);
 
     return (
         <>
@@ -261,4 +238,4 @@ const Roster = () => {
     );
 };
 
-export default Roster;
+export default Sponsors;
