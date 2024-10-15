@@ -64,11 +64,7 @@ const Equipments = () => {
     );
 
     useEffect(() => {
-        setIsLoading(true);
-
         getEquipmentsHandler();
-
-        setIsLoading(false);
         // eslint-disable-next-line
     }, []);
 
