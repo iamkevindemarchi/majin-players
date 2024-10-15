@@ -28,7 +28,7 @@ const Footer = ({ theme, routes }) => {
                 }`}
             >
                 <EmailIcon className="text-2xl" />
-                <span className="font-bold desktop:text-lg computer:text-lg phone:text-md">
+                <span className="font-bold desktop:text-lg phone:text-md">
                     {process.env.REACT_APP_EMAIL}
                 </span>
             </a>
@@ -38,7 +38,7 @@ const Footer = ({ theme, routes }) => {
                 }`}
             >
                 <LocationIcon className="text-2xl" />
-                <span className="desktop:text-lg computer:text-lg phone:text-md">
+                <span className="desktop:text-lg phone:text-md">
                     Italia
                 </span>
             </div>
@@ -54,7 +54,7 @@ const Footer = ({ theme, routes }) => {
             >
                 Collegamenti
             </span>
-            <div className="flex flex-col gap-1 desktop:text-center computer:text-center phone:text-left">
+            <div className="flex flex-col gap-1 desktop:text-center phone:text-left">
                 {routes.map(
                     (route) =>
                         !route.isHidden && (
@@ -113,7 +113,7 @@ const Footer = ({ theme, routes }) => {
     );
 
     const columns = (
-        <div className="flex desktop:flex-row computer:flex-row phone:flex-col desktop:gap-0 computer:gap-0 phone:gap-10 justify-between">
+        <div className="flex desktop:flex-row phone:flex-col desktop:gap-0 phone:gap-10 justify-between">
             {contacts}
             {routesComponent}
             {social}
@@ -122,7 +122,7 @@ const Footer = ({ theme, routes }) => {
 
     const copyright = (
         <span
-            className={`transition-all duration-200 desktop:text-md computer:text-md phone:text-sm desktop:text-left computer:text-left phone:text-center ${
+            className={`transition-all duration-200 desktop:text-md phone:text-sm desktop:text-left phone:text-center ${
                 isDarkMode ? "text-lightgray3" : "text-darkgray"
             }`}
         >
@@ -133,7 +133,7 @@ const Footer = ({ theme, routes }) => {
 
     return (
         <div
-            className={`transition-all duration-200 absolute bottom-0 desktop:px-40 computer:px-40 phone:px-5 w-full pt-20 pb-10 flex flex-col gap-10 ${
+            className={`transition-all duration-200 absolute bottom-0 desktop:px-40 phone:px-5 w-full pt-20 pb-10 flex flex-col gap-10 ${
                 isDarkMode ? "bg-black" : "bg-white"
             }`}
         >

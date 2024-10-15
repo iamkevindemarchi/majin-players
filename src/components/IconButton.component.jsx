@@ -4,7 +4,7 @@ const IconButton = ({ onClick, theme, variant, className, children }) => {
     const isDarkMode = theme === "dark";
 
     const isAdd = variant === "add";
-    const addClassName = `w-14 h-14 fixed text-3xl text-white desktop:right-20 desktop:bottom-20 computer:right-20 computer:bottom-20 phone:right-5 phone:bottom-5 z-[500] outline-none border-none ${
+    const addClassName = `w-14 h-14 fixed text-3xl text-white desktop:right-20 desktop:bottom-20 phone:right-5 phone:bottom-5 z-[500] outline-none border-none ${
         isDarkMode ? "bg-green-dark" : "bg-green"
     }`;
 

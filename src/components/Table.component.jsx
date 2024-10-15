@@ -60,7 +60,7 @@ const Table = ({
 
     const footer = (
         <div
-            className={`transition-all duration-200 desktop:px-10 desktop:py-3 desktop:z-0 desktop:relative desktop:w-full computer:px-10 computer:py-3 computer:z-0 computer:relative computer:w-full phone:px-5 phone:py-2 rounded-b-lg flex justify-between phone:absolute phone:z-10 phone:w-[90%] ${
+            className={`transition-all duration-200 desktop:px-10 desktop:py-3 desktop:z-0 desktop:relative desktop:w-full phone:px-5 phone:py-2 rounded-b-lg flex justify-between phone:absolute phone:z-10 phone:w-[90%] ${
                 isDarkMode ? "bg-pink-dark" : "bg-pink"
             }`}
         >
@@ -90,7 +90,7 @@ const Table = ({
     }, [canGoPrevious, canGoNext, totalRecords, dataForPage]);
 
     return hasData ? (
-        <div className="desktop:overflow-hidden computer:overflow-hidden phone:overflow-x-scroll">
+        <div className="desktop:overflow-hidden phone:overflow-x-scroll">
             <table className="w-full rounded-t-lg border-none border-collapse border-spacing-0">
                 <thead
                     className={`transition-all duration-200 ${
@@ -101,7 +101,7 @@ const Table = ({
                         {columns.map((column) => (
                             <th
                                 key={column.key}
-                                className={`text-left desktop:px-10 desktop:py-3 computer:px-10 computer:py-3 phone:px-5 phone:py-2 ${
+                                className={`text-left desktop:px-10 desktop:py-3 phone:px-5 phone:py-2 ${
                                     column.key === "actions" ? "w-10" : "w-auto"
                                 }`}
                             >
@@ -135,7 +135,7 @@ const Table = ({
                                         return (
                                             <td
                                                 key={index2}
-                                                className="desktop:px-10 desktop:py-3 computer:px-10 computer:py-3 phone:px-5 phone:py-2"
+                                                className="desktop:px-10 desktop:py-3 phone:px-5 phone:py-2"
                                             >
                                                 {isActionCell ? (
                                                     <IconButton

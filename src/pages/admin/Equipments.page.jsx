@@ -46,12 +46,12 @@ const Equipments = () => {
     async function getEquipmentsHandler(name = values.name) {
         setIsLoading(true);
         const res = await EQUIPMENT_API.getAll(from, dataForPage, name);
-        res
-            ? setTableData(res)
-            : activeSnackbar(
-                  "error",
-                  "Impossibile recuperare gli equipaggiamenti"
-              );
+        if (res) setTableData(res);
+        else
+            activeSnackbar(
+                "error",
+                "Impossibile recuperare gli equipaggiamenti"
+            );
         setIsLoading(false);
     }
 
@@ -66,7 +66,7 @@ const Equipments = () => {
 
     const title = (
         <h1
-            className={`transition-all duration-200 desktop:text-3xl computer:text-3xl phone:text-2xl text-center font-bold uppercase ${
+            className={`transition-all duration-200 desktop:text-3xl phone:text-2xl text-center font-bold uppercase ${
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
@@ -96,7 +96,7 @@ const Equipments = () => {
     }
 
     const filters = (
-        <form className="flex desktop:flex-row computer:flex-row gap-5 phone:flex-col phone:justify-center phone:items-center w-full">
+        <form className="flex desktop:flex-row gap-5 phone:flex-col phone:justify-center phone:items-center w-full">
             <Input
                 placeholder="Nome"
                 theme={theme}
@@ -231,7 +231,7 @@ const Equipments = () => {
     return (
         <>
             <div
-                className={`flex flex-col gap-10 desktop:pt-60 desktop:px-[20%] computer:pt-60 computer:px-[20%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
+                className={`flex flex-col gap-10 desktop:pt-60 desktop:px-[20%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
                     isDarkMode ? "bg-pink2-dark" : "bg-pink2"
                 }`}
             >

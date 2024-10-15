@@ -18,9 +18,9 @@ const Snackbar = ({ isOpen, message, type, theme }) => {
 
     return (
         <div
-            className={`transition-all duration-200 top-5 fixed z-[999] p-5 desktop:max-w-[50%] desktop:min-w-[auto] computer:max-w-[50%] computer:min-w-[auto] phone:min-w-full right-[-400px] ${
+            className={`transition-all duration-200 top-5 fixed z-[999] p-5 desktop:max-w-[50%] desktop:min-w-[auto] phone:min-w-full right-[-400px] ${
                 isOpen
-                    ? "opacity-100 desktop:right-10 computer:right-10 phone:right-0"
+                    ? "opacity-100 desktop:right-10 phone:right-0"
                     : "right-[-150px] opacity-0"
             }`}
         >

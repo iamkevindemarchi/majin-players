@@ -123,7 +123,7 @@ const Login = () => {
                 border: "1px solid rgba(255, 255, 255, 0.18)",
                 boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
             }}
-            className="bg-white desktop:px-[20%] computer:px-[20%] phone:px-[5%] desktop:py-48 computer:py-48 phone:py-20 rounded-3xl flex flex-col gap-5 phone:w-[90%]"
+            className="bg-white desktop:px-[20%] phone:px-[5%] desktop:py-48 phone:py-20 rounded-3xl flex flex-col gap-5 desktop:w-auto phone:w-[90%]"
         >
             <Input
                 autofocus
@@ -175,7 +175,7 @@ const Login = () => {
                 backgroundPosition: "center",
                 backgroundSize: "contain",
             }}
-            className="w-full h-[100vh] flex justify-center items-center flex-col desktop:gap-20 computer:gap-20 phone:gap-5 desktop:p-0 computer:p-0 phone:pt-0"
+            className="w-full h-[100vh] flex justify-center items-center flex-col desktop:gap-20 phone:gap-5 desktop:p-0 phone:pt-0"
         >
             {logo}
             {form}

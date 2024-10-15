@@ -30,7 +30,7 @@ const Home = () => {
 
     const title = (
         <span
-            className={`transition-all duration-200 desktop:text-[3em] computer:text-[3em] phone:text-[2em] font-bold uppercase ${
+            className={`transition-all duration-200 desktop:text-[3em] phone:text-[2em] font-bold uppercase ${
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
@@ -42,18 +42,18 @@ const Home = () => {
         <img
             src={`https://vtzrbvwdrbdsmovbtapo.supabase.co/storage/v1/object/public/images/${img}`}
             alt="Impossibile visualizzare l'immagine."
-            className="desktop:w-[30%] computer:w-[30%] phone:w-[100%]"
+            className="desktop:w-[30%] phone:w-[100%]"
         />
     );
 
     const sponsor = (
-        <div className="flex desktop:flex-row computer:flex-row phone:flex-col desktop:justify-around computer:justify-around phone:justify-center items-center desktop:gap-0 computer:gap-0 phone:gap-10 overflow-hidden w-full">
+        <div className="flex desktop:flex-row phone:flex-col desktop:justify-around phone:justify-center items-center desktop:gap-0 phone:gap-10 overflow-hidden w-full">
             {sponsors.map((sponsor) => (
                 <img
                     key={sponsor.id}
                     src={`https://vtzrbvwdrbdsmovbtapo.supabase.co/storage/v1/object/public/images/${sponsor.img}`}
                     alt="Impossibile visualizzare l'immagine."
-                    className="desktop:w-48 computer:w-48 phone:w-32 object-contain"
+                    className="desktop:w-48 phone:w-32 object-contain"
                 />
             ))}
         </div>
@@ -65,7 +65,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="min-h-[100vh] desktop:pt-40 computer:pt-40 phone:pt-40 desktop:px-[10%] computer:px-[10%] phone:px-[5%] flex flex-col justify-center items-center desktop:gap-32 computer:gap-32 phone:gap-20">
+        <div className="min-h-[100vh] desktop:pt-40 phone:pt-40 desktop:px-[10%] phone:px-[5%] flex flex-col justify-center items-center desktop:gap-32 phone:gap-20">
             {title}
             {imgComponent}
             {sponsor}

@@ -79,7 +79,7 @@ const Equipment = () => {
 
     const title = (
         <h1
-            className={`transition-all duration-200 desktop:text-3xl computer:text-3xl phone:text-2xl text-center font-bold uppercase ${
+            className={`transition-all duration-200 desktop:text-3xl phone:text-2xl text-center font-bold uppercase ${
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
@@ -251,7 +251,7 @@ const Equipment = () => {
     }
 
     const form = (
-        <form className="flex flex-col gap-5 w-full justify-center desktop:px-60 computer:px-60">
+        <form className="flex flex-col gap-5 w-full justify-center desktop:px-60">
             <Input
                 name="name"
                 placeholder="Nome"
@@ -297,7 +297,7 @@ const Equipment = () => {
 
     return (
         <div
-            className={`flex flex-col desktop:gap-10 computer:gap-10 phone:gap-5 desktop:pt-40 desktop:px-[19%] computer:px-[17%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
+            className={`flex flex-col desktop:gap-10 phone:gap-5 desktop:pt-40 desktop:px-[19%] phone:pt-40 phone:px-[5%] transition-all duration-200 pb-32 min-h-[100vh] ${
                 isDarkMode ? "bg-pink2-dark" : "bg-pink2"
             }`}
         >

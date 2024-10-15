@@ -100,7 +100,7 @@ const Sidebar = ({
 
     return (
         <div
-            className={`desktop:hidden computer:hidden phone:flex flex-col gap-10 transition-all duration-200 fixed w-full justify-center items-center h-full z-[950] ${
+            className={`desktop:hidden phone:flex flex-col gap-10 transition-all duration-200 fixed w-full justify-center items-center h-full z-[950] ${
                 isOpen ? "top-0 opacity-100" : "top-[-100%] opacity-[0]"
             } ${isDarkMode ? "bg-black" : "bg-white"}`}
         >

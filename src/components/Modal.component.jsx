@@ -33,7 +33,7 @@ const Modal = ({
             <Backdrop theme={theme}>
                 <div
                     ref={componentRef}
-                    className={`transition-all duration-200 desktop:w-[35%] computer:w-[35%] phone:w-[90%] p-10 rounded-3xl flex flex-col gap-5 cursor-auto ${
+                    className={`transition-all duration-200 desktop:w-[35%] phone:w-[90%] p-10 rounded-3xl flex flex-col gap-5 cursor-auto ${
                         isDarkMode ? "bg-black" : "bg-white"
                     }`}
                 >

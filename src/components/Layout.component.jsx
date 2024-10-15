@@ -89,7 +89,9 @@ const Layout = ({ children }) => {
 
     const user = (
         <div
-            className="transition-all duration-200 relative desktop:pb-[50vh] computer:pb-[50vh] phone:pb-[100vh]"
+            className={`transition-all duration-200 relative ${
+                !isLoginPage && "desktop:pb-[50vh] phone:pb-[100vh]"
+            }`}
             style={{
                 background: `linear-gradient(360deg, #c86476 20%, ${
                     isDarkMode ? "#000000" : "#ffffff"

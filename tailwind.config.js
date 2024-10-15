@@ -26,8 +26,7 @@ module.exports = {
             "green-dark": "#1a7c16",
         },
         screens: {
-            desktop: "2000px",
-            computer: "1500px",
+            desktop: "1500px",
             phone: "100px",
         },
         extend: {},
