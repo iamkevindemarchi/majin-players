@@ -15,11 +15,9 @@ export function checkEmail(email) {
     // eslint-disable-next-line
     const EMAIL_REG_EXP = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-    const isEmailEmpty = !checkRequiredField(email);
+    const isEmailEmpty = !email || email.trim() === "";
 
-    if (isEmailEmpty) return { value: false, message: "Campo obbligatorio*" };
-
-    if (!EMAIL_REG_EXP.test(email))
+    if (!isEmailEmpty && !EMAIL_REG_EXP.test(email))
         return { value: false, message: "E-mail non valida" };
 
     return { value: true, message: "" };

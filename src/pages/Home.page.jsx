@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { EQUIPMENT_API, SPONSOR_API } from "../api";
 
 // Contexts
-import { LoaderContext, ThemeContext } from "../providers";
+import { LoaderContext, SnackbarContext, ThemeContext } from "../providers";
 
 // Utils
 import { setPageTitle } from "../utils";
@@ -14,19 +14,36 @@ const Home = () => {
     const [img, setImg] = useState("");
     const [sponsors, setSponsors] = useState([]);
     const { setIsLoading } = useContext(LoaderContext);
+    const { activeSnackbar } = useContext(SnackbarContext);
 
     setPageTitle("Home");
 
     const isDarkMode = theme === "dark";
 
     async function getEquipmentsHandler() {
-        const res = await EQUIPMENT_API.getByName("Maglia");
-        setImg(res.img);
+        try {
+            const res = await EQUIPMENT_API.getByName("Maglia");
+
+            if (res) setImg(res.img);
+            else
+                activeSnackbar(
+                    "error",
+                    "Impossibile recuperare l'equipaggiamento"
+                );
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
     }
 
     async function getSponsorsHandler() {
-        const res = await SPONSOR_API.getAllWithoutFilters();
-        setSponsors(res);
+        try {
+            const res = await SPONSOR_API.getAllWithoutFilters();
+
+            if (res) setSponsors(res);
+            else activeSnackbar("error", "Impossibile recuperare gli sponsor");
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
     }
 
     const title = (
@@ -62,10 +79,16 @@ const Home = () => {
 
     useEffect(() => {
         setIsLoading(true);
+
         getEquipmentsHandler();
         getSponsorsHandler();
+
         setIsLoading(false);
         // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
     }, []);
 
     return (
