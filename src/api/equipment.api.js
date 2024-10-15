@@ -1,33 +1,19 @@
 import { supabase } from "../client";
 
-// Utils
-import { formatDateFromDB } from "../utils";
-
 const TABLE_NAME = "equipment";
 
 export const EQUIPMENT_API = {
-    getAll: async (from = 0, dataForPage = 5, name = "", surname = "") => {
+    getAll: async (from = 0, dataForPage = 5, name = "") => {
         try {
             const { data: res, error } = await supabase
                 .from(TABLE_NAME)
                 .select("*")
                 .range(from, from === 0 ? dataForPage - 1 : from * 2 - 1)
                 .ilike("name", `%${name}%`);
+
             if (error) return false;
 
-            let elabRes = [];
-            if (res.length > 0) {
-                res.map((x) => {
-                    const birthDate = formatDateFromDB(x.birthDate);
-
-                    return elabRes.push({
-                        ...x,
-                        birthDate,
-                    });
-                });
-            }
-
-            return elabRes;
+            return res;
         } catch (error) {
             console.error("🚀 ~ error:", error);
         }
@@ -39,6 +25,21 @@ export const EQUIPMENT_API = {
                 .from(TABLE_NAME)
                 .select()
                 .eq("id", id);
+
+            if (error) return false;
+
+            return res[0];
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
+    },
+
+    getByName: async (name) => {
+        try {
+            const { data: res, error } = await supabase
+                .from(TABLE_NAME)
+                .select()
+                .eq("name", name);
 
             if (error) return false;
 

@@ -1,33 +1,33 @@
 import { supabase } from "../client";
 
-// Utils
-import { formatDateFromDB } from "../utils";
-
 const TABLE_NAME = "sponsor";
 
 export const SPONSOR_API = {
-    getAll: async (from = 0, dataForPage = 5, name = "", surname = "") => {
+    getAll: async (from = 0, dataForPage = 5, name = "") => {
         try {
             const { data: res, error } = await supabase
                 .from(TABLE_NAME)
                 .select("*")
                 .range(from, from === 0 ? dataForPage - 1 : from * 2 - 1)
                 .ilike("name", `%${name}%`);
+
             if (error) return false;
 
-            let elabRes = [];
-            if (res.length > 0) {
-                res.map((x) => {
-                    const birthDate = formatDateFromDB(x.birthDate);
+            return res;
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
+    },
 
-                    return elabRes.push({
-                        ...x,
-                        birthDate,
-                    });
-                });
-            }
+    getAllWithoutFilters: async () => {
+        try {
+            const { data: res, error } = await supabase
+                .from(TABLE_NAME)
+                .select("*");
 
-            return elabRes;
+            if (error) return false;
+
+            return res;
         } catch (error) {
             console.error("🚀 ~ error:", error);
         }
