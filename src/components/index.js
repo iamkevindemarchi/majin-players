@@ -17,3 +17,4 @@ export { default as GoBtn } from "./GoBtn.component";
 export { default as Navbar } from "./Navbar.component";
 export { default as Footer } from "./Footer.component";
 export { default as Top } from "./Top.component";
+export { default as BackToTopButton } from "./BackToTopButton.component";
