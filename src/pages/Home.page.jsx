@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { EQUIPMENT_API, SPONSOR_API } from "../api";
 
 // Contexts
-import { ThemeContext } from "../providers";
+import { LoaderContext, ThemeContext } from "../providers";
 
 // Utils
 import { setPageTitle } from "../utils";
@@ -13,6 +13,7 @@ const Home = () => {
     const { theme } = useContext(ThemeContext);
     const [img, setImg] = useState("");
     const [sponsors, setSponsors] = useState([]);
+    const { setIsLoading } = useContext(LoaderContext);
 
     setPageTitle("Home");
 
@@ -60,8 +61,11 @@ const Home = () => {
     );
 
     useEffect(() => {
+        setIsLoading(true);
         getEquipmentsHandler();
         getSponsorsHandler();
+        setIsLoading(false);
+        // eslint-disable-next-line
     }, []);
 
     return (
