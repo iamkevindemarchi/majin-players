@@ -30,6 +30,7 @@ const Sponsors = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(parseInt(searchParams.get("page")) || 0);
     const [from, setFrom] = useState(parseInt(searchParams.get("from")) || 0);
+    const [to, setTo] = useState(parseInt(searchParams.get("to")) || 5);
     const [values, setValues] = useState({
         name: searchParams.get("name") || "",
     });
@@ -39,13 +40,12 @@ const Sponsors = () => {
     const { activeSnackbar } = useContext(SnackbarContext);
 
     const isDarkMode = theme === "dark";
-    const dataForPage = 5;
 
     setPageTitle("Sponsor");
 
     async function getSponsorsHandler(name = values.name) {
         setIsLoading(true);
-        const res = await SPONSOR_API.getAll(from, dataForPage, name);
+        const res = await SPONSOR_API.getAll(from, to, name);
         res
             ? setTableData(res)
             : activeSnackbar("error", "Impossibile recuperare gli sponsor");
@@ -81,12 +81,14 @@ const Sponsors = () => {
         newQueryParameters.set("name", values.name);
         newQueryParameters.set("page", page);
         newQueryParameters.set("from", from);
+        newQueryParameters.set("to", to);
         setSearchParams(newQueryParameters);
     }
 
     function searchHandler() {
         setPage(0);
         setFrom(0);
+        setTo(5);
         updateQueryParams();
         getSponsorsHandler();
         getTotalSponsorsHandler();
@@ -143,7 +145,8 @@ const Sponsors = () => {
             data={tableData}
             theme={theme}
             onRowClick={tableRowHandler}
-            dataForPage={dataForPage}
+            to={to}
+            setTo={setTo}
             page={page}
             setPage={setPage}
             from={from}
@@ -219,7 +222,7 @@ const Sponsors = () => {
     useEffect(() => {
         updateQueryParams();
         // eslint-disable-next-line
-    }, [page, from, values.name]);
+    }, [page, from, to, values.name]);
 
     return (
         <>
