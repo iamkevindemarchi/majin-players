@@ -584,6 +584,7 @@ const Player = () => {
                         <div
                             className={`flex flex-row gap-5 items-center flex-wrap`}
                         >
+                            <span className="text-md">{top.year}</span>
                             <span className="text-md">
                                 {top.placement}° posto
                             </span>

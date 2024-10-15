@@ -34,6 +34,20 @@ export const PLAYERS_API = {
         }
     },
 
+    getAllWithoutFilters: async () => {
+        try {
+            const { data: res, error } = await supabase
+                .from(TABLE_NAME)
+                .select("*");
+
+            if (error) return false;
+
+            return res;
+        } catch (error) {
+            console.error("🚀 ~ error:", error);
+        }
+    },
+
     get: async (id) => {
         try {
             const { data: res, error } = await supabase

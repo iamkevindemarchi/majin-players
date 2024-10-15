@@ -35,7 +35,7 @@ const Sidebar = ({
             onClick={logoHandler}
             src={logoImg}
             alt="Impossibile visualizzare l'immagine."
-            className="w-20 hover:opacity-50 transition-all duration-200 cursor-pointer"
+            className="w-40 hover:opacity-50 transition-all duration-200 cursor-pointer"
         />
     );
 
@@ -59,7 +59,7 @@ const Sidebar = ({
                                 isActiveRoute && "bg-navbar-btn"
                             } px-5 py-2 rounded-lg transition-all duration-200`}
                         >
-                            <span className="text-2xl uppercase font-bold text-primary transition-all duration-200 cursor-pointer">
+                            <span className="text-2xl uppercase font-montserrat-bold text-primary transition-all duration-200 cursor-pointer">
                                 {route.name}
                             </span>
                         </Link>
