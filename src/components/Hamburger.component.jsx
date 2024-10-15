@@ -10,7 +10,7 @@ const Hamburger = ({ isOpen, onClick, theme }) => {
                 isOpen &&
                 "bg-primary first:rotate-45 even:opacity-[0] even:translate-x-20 last:rotate-[-45deg] origin-[1px]"
             }
-            ${isDarkMode ? "bg-white" : "bg-black"}`}
+            ${!isOpen && (isDarkMode ? "bg-white" : "bg-black")}`}
         />
     ));
 
