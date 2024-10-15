@@ -103,7 +103,6 @@ const Equipments = () => {
                 name="name"
                 value={values.name}
                 onChange={inputHandler}
-                autofocus
             />
             <div className="flex flex-row gap-5">
                 <Button onClick={searchHandler}>
