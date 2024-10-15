@@ -2,6 +2,10 @@
 module.exports = {
     content: ["./src/**/*.{html,js,jsx}"],
     theme: {
+        fontFamily: {
+            "verdana": "Verdana",
+            "montserrat-bold": "MontserratBold",
+        },
         colors: {
             primary: "#f97c90",
             "navbar-btn": "#f97c9143",

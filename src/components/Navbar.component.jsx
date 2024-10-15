@@ -31,7 +31,7 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     );
 
     const routesComponent = (
-        <div className="flex flex-row items-center gap-3 phone:hidden desktop:block">
+        <div className="flex flex-row items-center gap-3 phone:hidden desktop:block overflow-hidden">
             {routes.map((route) => {
                 const pathname = route.path;
                 const paths = pathname.split("/");
@@ -48,7 +48,7 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
                             className="px-5 py-1 rounded-lg"
                         >
                             <span
-                                className={`transition-all duration-200 text-lg uppercase font-bold cursor-pointer hover:text-primary ${
+                                className={`transition-all duration-200 text-lg uppercase font-bold cursor-pointer hover:text-primary font-verdana ${
                                     !isActiveRoute &&
                                     (isDarkMode ? "text-white" : "text-black")
                                 } ${isActiveRoute && "text-primary"}`}

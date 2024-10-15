@@ -31,7 +31,7 @@ const Home = () => {
 
     const title = (
         <span
-            className={`transition-all duration-200 desktop:text-[3em] phone:text-[2em] font-bold uppercase ${
+            className={`transition-all duration-200 desktop:text-[3em] phone:text-[2em] font-bold uppercase font-montserrat-bold ${
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
