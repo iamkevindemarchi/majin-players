@@ -6,12 +6,12 @@ import { formatDateFromDB } from "../utils";
 const TABLE_NAME = "players";
 
 export const PLAYERS_API = {
-    getAll: async (from = 0, dataForPage = 5, name = "", surname = "") => {
+    getAll: async (from = 0, to = 5, name = "", surname = "") => {
         try {
             const { data: res, error } = await supabase
                 .from(TABLE_NAME)
                 .select("*")
-                .range(from, from === 0 ? dataForPage - 1 : from * 2 - 1)
+                .range(from, to)
                 .ilike("name", `%${name}%`)
                 .ilike("surname", `%${surname}%`);
             if (error) return false;

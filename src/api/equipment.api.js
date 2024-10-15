@@ -3,12 +3,12 @@ import { supabase } from "../client";
 const TABLE_NAME = "equipment";
 
 export const EQUIPMENT_API = {
-    getAll: async (from = 0, dataForPage = 5, name = "") => {
+    getAll: async (from = 0, to = 5, name = "") => {
         try {
             const { data: res, error } = await supabase
                 .from(TABLE_NAME)
                 .select("*")
-                .range(from, from === 0 ? dataForPage - 1 : from * 2 - 1)
+                .range(from, to)
                 .ilike("name", `%${name}%`);
 
             if (error) return false;

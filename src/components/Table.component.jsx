@@ -16,7 +16,8 @@ const Table = ({
     from,
     setFrom,
     totalRecords,
-    dataForPage,
+    to,
+    setTo,
     onDelete,
 }) => {
     const [isPreviousPageBtnDisabled, setIsPreviousPageBtnDisabled] =
@@ -24,7 +25,7 @@ const Table = ({
     const [isNextPageBtnDisabled, setIsNextPageBtnDisabled] = useState(false);
 
     const isDarkMode = theme === "dark";
-    const totalPages = totalRecords / dataForPage;
+    const totalPages = totalRecords / 5;
     const canGoPrevious = page > 0;
     const canGoNext = page <= parseInt(totalPages - 1);
     const hasData = data && data.length > 0;
@@ -32,11 +33,13 @@ const Table = ({
     function previousPageHandler() {
         setPage(page - 1);
         setFrom(from - 5);
+        setTo(to - 5);
     }
 
     function nextPageHandler() {
         setPage(page + 1);
         setFrom(from + 5);
+        setTo(to + 5);
     }
 
     const arrowBtnDisabledClassName = isDarkMode
@@ -86,8 +89,8 @@ const Table = ({
 
     useEffect(() => {
         setIsPreviousPageBtnDisabled(!canGoPrevious);
-        setIsNextPageBtnDisabled(!canGoNext || totalRecords <= dataForPage);
-    }, [canGoPrevious, canGoNext, totalRecords, dataForPage]);
+        setIsNextPageBtnDisabled(!canGoNext || totalRecords <= to);
+    }, [canGoPrevious, canGoNext, totalRecords, to]);
 
     return hasData ? (
         <div className="desktop:overflow-hidden phone:overflow-x-scroll">
