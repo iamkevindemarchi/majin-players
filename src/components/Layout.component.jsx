@@ -130,7 +130,7 @@ const Layout = ({ children }) => {
 
     return (
         <>
-            {isLoading && <Loader />}
+            {isLoading && <Loader theme={theme} />}
             {snackbar}
             {isAdminRoute ? admin : user}
         </>

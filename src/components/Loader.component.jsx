@@ -4,9 +4,9 @@ import { DotLoader as Spinner } from "react-spinners";
 // Components
 import Backdrop from "./Backdrop.component";
 
-const Loader = () => {
+const Loader = ({ theme }) => {
     return (
-        <Backdrop>
+        <Backdrop theme={theme}>
             <Spinner color="#ffffff" />
         </Backdrop>
     );

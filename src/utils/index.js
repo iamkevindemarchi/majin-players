@@ -11,3 +11,4 @@ export {
     checkYear,
     checkTopYear,
 } from "./validations";
+export { sortArrayDescending, getArrayByDifferentProperty } from "./array";

@@ -8,7 +8,6 @@ import { PLAYERS_API, IMAGES_API, TOP_API } from "../../api";
 import {
     AddIcon,
     CancelIcon,
-    DeleteIcon,
     EditIcon,
     SaveIcon,
     UserIcon,
@@ -24,6 +23,7 @@ import {
     InputFile,
     Modal,
     TextArea,
+    Top,
 } from "../../components";
 
 // Contexts
@@ -570,38 +570,18 @@ const Player = () => {
                 <AddIcon />
                 Aggiungi
             </Button>
-            {isEditMode &&
-                top &&
-                top.map((top) => (
-                    <div
-                        key={top.id}
-                        className={`flex flex-col justify-center items-center p-5 gap-3 rounded-lg w-full ${
-                            isDarkMode
-                                ? "bg-pink-dark text-white"
-                                : "bg-pink text-black"
-                        }`}
-                    >
-                        <div
-                            className={`flex flex-row gap-5 items-center flex-wrap`}
-                        >
-                            <span className="text-md">{top.year}</span>
-                            <span className="text-md">
-                                {top.placement}° posto
-                            </span>
-                            <span className="text-md">{top.event}</span>
-                            <span className="text-md">{top.place}</span>
-                            <span className="text-md">{top.deck}</span>
-                        </div>
-                        <DeleteIcon
-                            onClick={() => {
-                                topDeleteHandler(top);
-                                setIsDeleteModalOpen(true);
-                            }}
-                            className="transition-all duration-200 desktop:text-xl phone:text-2xl cursor-pointer text-red hover:opacity-50"
-                        />
-                    </div>
-                ))}
         </form>
+    );
+
+    const topComponent = isEditMode && (
+        <Top
+            data={top}
+            theme={theme}
+            onDelete={(top) => {
+                topDeleteHandler(top);
+                setIsDeleteModalOpen(true);
+            }}
+        />
     );
 
     async function deleteTopHandler() {
@@ -665,6 +645,7 @@ const Player = () => {
                 {avatar}
                 {form}
                 {topForm}
+                {topComponent}
             </div>
             {deleteModal}
         </>
