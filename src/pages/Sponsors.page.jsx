@@ -27,11 +27,7 @@ const Sponsors = () => {
             const res = await SPONSOR_API.getAllWithoutFilters();
 
             if (res) setSponsors(res);
-            else
-                activeSnackbar(
-                    "error",
-                    "Impossibile recuperare l'equipaggiamento"
-                );
+            else activeSnackbar("error", "Impossibile recuperare gli sponsor");
         } catch (error) {
             console.error("🚀 ~ error:", error);
         }
