@@ -19,7 +19,7 @@ const Dashboard = () => {
     const image = (
         <img
             src={logoImg}
-            className="object-contain desktop:w-[30%] compute:w-[30%] phone:w-[90%]"
+            className="object-contain desktop:w-[30%] computer:w-[30%] phone:w-[90%]"
             alt="Impossibile visualizzare l'immagine."
         />
     );
@@ -32,7 +32,7 @@ const Dashboard = () => {
 
     return (
         <div
-            className={`transition-all duration-200 flex flex-col gap-10 desktop:pt-48 computer:pt-48 phone:pt-20 justify-center items-center min-h-[100vh] ${
+            className={`transition-all duration-200 flex flex-col gap-10 desktop:pt-48 computer:pt-40 phone:pt-20 justify-center items-center min-h-[100vh] ${
                 isDarkMode ? "bg-pink2-dark" : "bg-pink2"
             }`}
         >

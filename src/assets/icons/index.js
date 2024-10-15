@@ -13,3 +13,5 @@ export { UserIcon } from "./user.icon";
 export { SaveIcon } from "./save.icon";
 export { BackIcon } from "./back.icon";
 export { EditIcon } from "./edit.icon";
+export { ClosedEyeIcon } from "./closed-eye.icon";
+export { EyeIcon } from "./eye.icon";
