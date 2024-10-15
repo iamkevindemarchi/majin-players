@@ -24,6 +24,7 @@ import {
 
 // Utils
 import { removeFromStorage } from "../utils";
+import BackToTopButton from "./BackToTopButton.component";
 
 const Layout = ({ children }) => {
     const { pathname } = useLocation();
@@ -44,6 +45,8 @@ const Layout = ({ children }) => {
 
     const isLoginPage = pathname === "/login";
     const isDarkMode = theme === "dark";
+
+    const loader = <Loader theme={theme} />;
 
     const snackbar = (
         <Snackbar
@@ -128,11 +131,14 @@ const Layout = ({ children }) => {
         </div>
     );
 
+    const backToTopButton = <BackToTopButton theme={theme} />;
+
     return (
         <>
-            {isLoading && <Loader theme={theme} />}
+            {isLoading && loader}
             {snackbar}
             {isAdminRoute ? admin : user}
+            {!isSidebarOpen && backToTopButton}
         </>
     );
 };

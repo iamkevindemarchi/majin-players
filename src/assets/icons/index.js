@@ -19,3 +19,4 @@ export { EmailIcon } from "./email.icon";
 export { LocationIcon } from "./location.icon";
 export { InstagramIcon } from "./instagram.icon";
 export { YoTubeIcon } from "./youtube.icon";
+export { ArrowUpIcon } from "./arrow-up.icon";
