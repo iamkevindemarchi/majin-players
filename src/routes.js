@@ -8,7 +8,7 @@ import {
     AdminEquipments,
     AdminEquipment,
 } from "./pages/admin";
-import { Login, Home, Roster, Player, Equipments } from "./pages";
+import { Login, Home, Roster, Player, Equipments, Sponsors } from "./pages";
 
 export const ADMIN_ROUTES = [
     { path: "/admin", element: <Dashboard />, name: "Home" },
@@ -68,6 +68,6 @@ export const ROUTES = [
         isHidden: true,
     },
     { path: "/equipment", element: <Equipments />, name: "Equipaggiamento" },
-    { path: "/sponsor", element: <Home />, name: "Sponsor" },
+    { path: "/sponsor", element: <Sponsors />, name: "Sponsor" },
     { path: "/social", element: <Home />, name: "Social" },
 ];
