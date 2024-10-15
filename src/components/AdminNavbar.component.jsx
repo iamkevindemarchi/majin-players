@@ -49,7 +49,7 @@ const AdminNavbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) =>
                                 isActiveRoute && "bg-navbar-btn"
                             } px-5 py-1 rounded-lg transition-all duration-200`}
                         >
-                            <span className="text-lg font-bold text-primary transition-all duration-200 cursor-pointer">
+                            <span className="text-xl font-montserrat-bold text-primary transition-all duration-200 cursor-pointer">
                                 {route.name}
                             </span>
                         </Link>

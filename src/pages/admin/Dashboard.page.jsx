@@ -26,7 +26,7 @@ const Dashboard = () => {
 
     const title = (
         <span
-            className={`transition-all duration-200 desktop:text-[5em] phone:text-[3em] font-bold uppercase opacity-50 ${
+            className={`transition-all duration-200 desktop:text-[5em] phone:text-[3em] font-montserrat-bold uppercase opacity-50 ${
                 isDarkMode ? "text-white" : "text-black"
             }`}
         >
