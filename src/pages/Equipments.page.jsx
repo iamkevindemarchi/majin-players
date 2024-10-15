@@ -9,7 +9,7 @@ import { LoaderContext, SnackbarContext, ThemeContext } from "../providers";
 // Utils
 import { setPageTitle } from "../utils";
 
-const Equipment = () => {
+const Equipments = () => {
     const { setIsLoading } = useContext(LoaderContext);
     const { activeSnackbar } = useContext(SnackbarContext);
     const [tshirt, setTshirt] = useState(null);
@@ -112,4 +112,4 @@ const Equipment = () => {
     );
 };
 
-export default Equipment;
+export default Equipments;
