@@ -3,12 +3,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
-import { SunIcon, MoonIcon } from "../assets/icons";
+import { LogoutIcon, SunIcon, MoonIcon } from "../assets/icons";
 
 // Components
 import IconButton from "./IconButton.component";
 
-const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
+const AdminNavbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -26,12 +26,12 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
             onClick={logoHandler}
             src={logoImg}
             alt="Impossibile visualizzare l'immagine."
-            className="transition-all duration-200 desktop:h-[80%] computer:h-[80%] phone:h-[50%] hover:opacity-50 cursor-pointer opacity-100"
+            className="w-20 hover:opacity-50 cursor-pointer opacity-100 top-0 transition-all duration-200"
         />
     );
 
     const routesComponent = (
-        <div className="flex flex-row items-center gap-3 phone:hidden desktop:block computer:block">
+        <div className="flex-row items-center justify-around w-[50%] desktop:flex computer:flex phone:hidden">
             {routes.map((route) => {
                 const pathname = route.path;
                 const paths = pathname.split("/");
@@ -45,14 +45,11 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
                         <Link
                             key={route.path}
                             to={route.path}
-                            className="px-5 py-1 rounded-lg"
+                            className={`${
+                                isActiveRoute && "bg-navbar-btn"
+                            } px-5 py-1 rounded-lg transition-all duration-200`}
                         >
-                            <span
-                                className={`transition-all duration-200 text-lg uppercase font-bold cursor-pointer hover:text-primary ${
-                                    !isActiveRoute &&
-                                    (isDarkMode ? "text-white" : "text-black")
-                                } ${isActiveRoute && "text-primary"}`}
-                            >
+                            <span className="text-lg font-bold text-primary transition-all duration-200 cursor-pointer">
                                 {route.name}
                             </span>
                         </Link>
@@ -71,22 +68,27 @@ const Navbar = ({ routes, isAdmin, theme, themeHandler, logoutHandler }) => {
                     <SunIcon className="text-2xl text-white" />
                 )}
             </IconButton>
+            <button onClick={logoutHandler}>
+                <LogoutIcon
+                    className={`text-2xl ${
+                        isDarkMode ? "text-white" : "text-black"
+                    }`}
+                />
+            </button>
         </div>
     );
 
     return (
         <div
-            className={`transition-all duration-200 flex justify-between items-center desktop:pl-20 desktop:pr-20 computer:pr-20 computer:pl-20 phone:pr-0 phone:pl-0 h-36 w-full fixed z-10 ${
+            className={`h-32 flex flex-row items-center justify-around transition-all duration-200 fixed z-10 w-full ${
                 isDarkMode ? "bg-black" : "bg-white"
             }`}
         >
-            <div className="w-full h-full flex flex-row gap-5 items-center desktop:justify-start computer:justify-start phone:justify-center">
-                {logo}
-                {routesComponent}
-            </div>
+            {logo}
+            {routesComponent}
             {icons}
         </div>
     );
 };
 
-export default Navbar;
+export default AdminNavbar;

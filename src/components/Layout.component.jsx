@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ADMIN_ROUTES } from "../routes";
+import { ADMIN_ROUTES, ROUTES } from "../routes";
 
 // Api
 import { AUTH_API } from "../api";
 
 // Components
-import Navbar from "./Navbar.component";
+import AdminNavbar from "./AdminNavbar.component";
 import Hamburger from "./Hamburger.component";
 import Sidebar from "./Sidebar.component";
 import Loader from "./Loader.component";
 import Snackbar from "./Snackbar.component";
+import Navbar from "./Navbar.component";
+import Footer from "./Footer.component";
 
 // Contexts
 import {
@@ -40,6 +42,9 @@ const Layout = ({ children }) => {
         },
     } = useContext(SnackbarContext);
 
+    const isLoginPage = pathname === "/login";
+    const isDarkMode = theme === "dark";
+
     const snackbar = (
         <Snackbar
             isOpen={isSnackbarActive}
@@ -57,7 +62,7 @@ const Layout = ({ children }) => {
 
     const admin = (
         <div>
-            <Navbar
+            <AdminNavbar
                 routes={ADMIN_ROUTES}
                 isAdmin={isAdminRoute}
                 theme={theme}
@@ -82,7 +87,44 @@ const Layout = ({ children }) => {
         </div>
     );
 
-    const user = <div>{children}</div>;
+    const user = (
+        <div
+            className="transition-all duration-200 relative desktop:pb-[50vh] computer:pb-[50vh] phone:pb-[100vh]"
+            style={{
+                background: `linear-gradient(360deg, #c86476 20%, ${
+                    isDarkMode ? "#000000" : "#ffffff"
+                } 70%)`,
+            }}
+        >
+            {!isLoginPage && (
+                <Navbar
+                    routes={ROUTES}
+                    isAdmin={isAdminRoute}
+                    theme={theme}
+                    themeHandler={themeHandler}
+                    logoutHandler={logoutHandler}
+                />
+            )}
+            {!isLoginPage && (
+                <Hamburger
+                    isOpen={isSidebarOpen}
+                    onClick={sidebarHandler}
+                    theme={theme}
+                />
+            )}
+            <Sidebar
+                routes={ROUTES}
+                isOpen={isSidebarOpen}
+                isAdmin={isAdminRoute}
+                sidebarHandler={sidebarHandler}
+                theme={theme}
+                themeHandler={themeHandler}
+                logoutHandler={logoutHandler}
+            />
+            {children}
+            {!isLoginPage && <Footer theme={theme} routes={ROUTES} />}
+        </div>
+    );
 
     return (
         <>

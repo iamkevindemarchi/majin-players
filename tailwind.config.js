@@ -7,6 +7,7 @@ module.exports = {
             "navbar-btn": "#f97c9143",
             lightgray: "#ececec",
             lightgray2: "#f6f6f6",
+            lightgray3: "#cccccc",
             black: "#000000",
             darkgray: "#242424",
             darkgray2: "#a9a9a9",

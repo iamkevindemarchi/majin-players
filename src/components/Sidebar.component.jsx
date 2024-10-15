@@ -78,21 +78,23 @@ const Sidebar = ({
                     <SunIcon className="text-2xl text-blue text-white" />
                 )}
             </IconButton>
-            <button
-                onClick={() => {
-                    logoutHandler();
+            {isAdmin && (
+                <button
+                    onClick={() => {
+                        logoutHandler();
 
-                    setTimeout(() => {
-                        sidebarHandler();
-                    }, 1000);
-                }}
-            >
-                <LogoutIcon
-                    className={`text-3xl ${
-                        isDarkMode ? "text-white" : "text-black"
-                    }`}
-                />
-            </button>
+                        setTimeout(() => {
+                            sidebarHandler();
+                        }, 1000);
+                    }}
+                >
+                    <LogoutIcon
+                        className={`text-3xl ${
+                            isDarkMode ? "text-white" : "text-black"
+                        }`}
+                    />
+                </button>
+            )}
         </div>
     );
 
