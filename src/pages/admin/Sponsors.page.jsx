@@ -206,6 +206,7 @@ const Sponsors = () => {
     );
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getTotalSponsorsHandler();
         // eslint-disable-next-line
     }, []);

@@ -213,6 +213,7 @@ const Equipments = () => {
     );
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getTotalEquipmentsHandler();
         // eslint-disable-next-line
     }, []);

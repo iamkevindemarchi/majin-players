@@ -229,6 +229,7 @@ const Roster = () => {
     );
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getTotalPlayersHandler();
         // eslint-disable-next-line
     }, []);

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ADMIN_ROUTES, ROUTES } from "./routes";
 
 // Components
@@ -10,7 +10,6 @@ import { AuthContext } from "./providers";
 
 const App = () => {
     const { session } = useContext(AuthContext);
-    const { pathname } = useLocation();
 
     const ProtectedRoute = ({ children }) => {
         if (!session) {
@@ -19,10 +18,6 @@ const App = () => {
 
         return children;
     };
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname]);
 
     return (
         <Layout>

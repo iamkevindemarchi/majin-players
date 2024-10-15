@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 // Assets
 import logoImg from "../../assets/images/logo.png";
@@ -33,6 +33,10 @@ const Dashboard = () => {
             Dashboard
         </span>
     );
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div
